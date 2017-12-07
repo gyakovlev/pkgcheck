@@ -44,7 +44,7 @@ jobs:
         - secure: FmQEUPLe9lBG5rT7qkrPwZsOyULX3pmKgru4bC3ZrST6ibCaAmT/TfLZ/XqHrvGeaP0vKu7daqlgrpbIkzBfxeJ+UZYL4T5F2yTLSgoigs4mGaDgt3zZvuzGEffJV+drgQVuHeEBKtT+f3BQ1UnLTKREjgRgwbIVmQ6GHKxwU1s=
         - CIBW_PLATFORM=linux
         - CIBW_SKIP="cp26-* cp33-*"
-        - CIBW_BEFORE_BUILD="{pip} install -r requirements/wheel.txt -r requirements/test.txt"
+        - CIBW_BEFORE_BUILD="requirements/pip.sh -rrequirements/wheel.txt -rrequirements/test.txt"
         - CIBW_TEST_COMMAND="py.test --pyargs pkgcheck"
       before_script:
         - git clone https://github.com/pkgcore/pkgdist.git
@@ -58,7 +58,7 @@ jobs:
       before_script:
         - git clone https://github.com/pkgcore/pkgdist.git
         - cp -R pkgdist/requirements/* requirements/
-        - pip install -r requirements/sdist.txt
+        - requirements/pip.sh -rrequirements/sdist.txt
       script: python setup.py sdist
       after_success: tar -ztf dist/*.tar.gz | sort
       deploy:
